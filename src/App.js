@@ -43,7 +43,6 @@ export default function App() {
           <StickyBox
             offsetTop={height / 3}
             offsetBottom={20}
-            style={{ border: "3px solid green" }}
           >
             <Paper>
               <SettingsPanel />

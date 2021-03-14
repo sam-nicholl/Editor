@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNode } from "@craftjs/core";
 import ContentEditable from "react-contenteditable";
-import { FormControl, FormLabel, Slider } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Grid,
+  Slider,
+} from "@material-ui/core";
+import {
+  FormatAlignCenterOutlined,
+  FormatAlignLeft,
+  FormatAlignLeftOutlined,
+  FormatAlignRightOutlined,
+} from "@material-ui/icons";
 
 export const Text = ({ text, fontSize, textAlign }) => {
   const {
@@ -42,24 +54,61 @@ const TextSettings = () => {
   const {
     actions: { setProp },
     fontSize,
+    textAlign,
   } = useNode((node) => ({
     fontSize: node.data.props.fontSize,
+    textAlign: node.data.props.textAlign,
   }));
 
   return (
     <>
-      <FormControl size="small" component="fieldset">
-        <FormLabel component="legend">Font size</FormLabel>
-        <Slider
-          value={fontSize || 7}
-          step={7}
-          min={1}
-          max={50}
-          onChange={(_, value) => {
-            setProp((props) => (props.fontSize = value));
-          }}
-        />
-      </FormControl>
+      <Grid container direction="row">
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item xs={4}>
+              <Button
+                onClick={() => {
+                  setProp((props) => (props.textAlign = "left"));
+                }}
+              >
+                <FormatAlignLeftOutlined />
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                onClick={() => {
+                  setProp((props) => (props.textAlign = "center"));
+                }}
+              >
+                <FormatAlignCenterOutlined />
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                onClick={() => {
+                  setProp((props) => (props.textAlign = "right"));
+                }}
+              >
+                <FormatAlignRightOutlined />
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl size="small" component="fieldset">
+            <FormLabel component="legend">Font size</FormLabel>
+            <Slider
+              value={fontSize || 7}
+              step={7}
+              min={1}
+              max={50}
+              onChange={(_, value) => {
+                setProp((props) => (props.fontSize = value));
+              }}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
     </>
   );
 };
