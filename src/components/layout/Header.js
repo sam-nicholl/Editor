@@ -16,11 +16,11 @@ export const Header = ({ columns, margin, padding }) => {
         <Element
           id={i.toString()}
           is={Paper}
-          style={{ height: "100%" }}
+          style={{ height: "100%", maxHeight: 100 }}
           canvas
           square
         >
-          <Text text="Change elements here"></Text>
+          <Text text="Change elements here" style={{ maxHeight: 100 }}></Text>
         </Element>
       </Grid>
     ));
@@ -29,7 +29,7 @@ export const Header = ({ columns, margin, padding }) => {
     <Grid
       ref={(ref) => connect(drag(ref))}
       container
-      style={{ height: 200 }}
+      style={{ height: 100, maxHeight: 100 }}
     >
       {columnItems}
     </Grid>

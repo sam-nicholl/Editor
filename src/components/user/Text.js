@@ -10,12 +10,18 @@ import {
 } from "@material-ui/core";
 import {
   FormatAlignCenterOutlined,
-  FormatAlignLeft,
   FormatAlignLeftOutlined,
   FormatAlignRightOutlined,
+  FormatBoldOutlined,
+  FormatItalicOutlined,
+  FormatUnderlinedOutlined,
 } from "@material-ui/icons";
+import sanitizeHtml from "sanitize-html";
 
 export const Text = ({ text, fontSize, textAlign }) => {
+  const [html, setHtml] = useState(`<p>${text}</p>`);
+  const [editable, setEditable] = useState(false);
+
   const {
     connectors: { connect, drag },
     selected,
@@ -26,25 +32,31 @@ export const Text = ({ text, fontSize, textAlign }) => {
     dragged: state.events.dragged,
   }));
 
-  const [editable, setEditable] = useState(false);
+  const sanitiseConf = {
+    allowedTags: ["b", "i", "em", "strong", "p", "h1", "u"],
+  };
+
+  const sanitiseHtml = () => {
+    setHtml(sanitizeHtml(html, sanitiseConf));
+  };
 
   useEffect(() => {
     !selected && setEditable(false);
   }, [selected]);
 
+  const handleChange = (evt) => {
+    setHtml(evt.target.value);
+  };
+
   return (
     <div ref={(ref) => connect(drag(ref))} onClick={(e) => setEditable(true)}>
       <ContentEditable
-        html={text}
-        onChange={(e) =>
-          setProp(
-            (props) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ""))
-          )
-        }
-        tagName="p"
+        html={html}
+        onChange={handleChange}
+        tagName="pre"
         style={{ fontSize: `${fontSize}px`, textAlign }}
         disabled={!editable}
+        onBlur={sanitiseHtml}
       />
     </div>
   );
@@ -95,6 +107,25 @@ const TextSettings = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
+          <Grid container>
+            <Grid item xs={3}>
+              <EditButton cmd="bold">
+                <FormatBoldOutlined />
+              </EditButton>
+            </Grid>
+            <Grid item xs={3}>
+              <EditButton cmd="italic">
+                <FormatItalicOutlined />
+              </EditButton>
+            </Grid>
+            <Grid item xs={3}>
+              <EditButton cmd="underline">
+                <FormatUnderlinedOutlined />
+              </EditButton>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <FormControl size="small" component="fieldset">
             <FormLabel component="legend">Font size</FormLabel>
             <Slider
@@ -110,6 +141,20 @@ const TextSettings = () => {
         </Grid>
       </Grid>
     </>
+  );
+};
+
+const EditButton = ({ cmd, arg, children }) => {
+  return (
+    <Button
+      key={cmd}
+      onMouseDown={(evt) => {
+        evt.preventDefault();
+        document.execCommand(cmd, false, arg);
+      }}
+    >
+      {children}
+    </Button>
   );
 };
 
