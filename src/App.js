@@ -11,6 +11,7 @@ import { Card } from "./components/user/Card";
 import { Toolbox } from "./components/Toolbox";
 import { Page } from "./components/Page";
 import { SettingsPanel } from "./components/SettingsPanel";
+import { Header } from "./components/layout/Header";
 
 import useWindowDimensions from "./utils/useWindowDimensions";
 
@@ -19,7 +20,16 @@ export default function App() {
 
   return (
     <Editor
-      resolver={{ Card, Text, Container, Paper, Image, ColumnLayout, Page }}
+      resolver={{
+        Card,
+        Text,
+        Container,
+        Paper,
+        Image,
+        ColumnLayout,
+        Page,
+        Header,
+      }}
     >
       <Grid container>
         <Grid item>

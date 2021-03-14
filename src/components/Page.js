@@ -1,6 +1,7 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 import { useNode } from "@craftjs/core";
+import { Header } from "./layout/Header";
 
 export const Page = ({
   background,
@@ -25,8 +26,4 @@ export const Page = ({
   );
 };
 
-Page.craft = {
-  rules: {
-    canDrop: (node) => node.data.name === "ColumnLayout",
-  },
-};
+Page.craft = {};

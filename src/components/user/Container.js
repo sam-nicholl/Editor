@@ -2,7 +2,14 @@ import React from "react";
 import { Paper } from "@material-ui/core";
 import { useNode } from "@craftjs/core";
 
-export const Container = ({ background, padding = 0, style, elevation, square, children }) => {
+export const Container = ({
+  background,
+  padding = 0,
+  style,
+  elevation,
+  square,
+  children,
+}) => {
   const {
     connectors: { connect, drag },
   } = useNode();

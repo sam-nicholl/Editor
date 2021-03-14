@@ -1,12 +1,9 @@
 import React, { useRef } from "react";
 import { Grid } from "@material-ui/core";
 
-import { Container } from "../components/user/Container";
-import { Text } from "../components/user/Text";
 import { Element, Frame } from "@craftjs/core";
-import { Image } from "../components/user/Image";
-import { ColumnLayout } from "../components/user/ColumnLayout";
 import { Page } from "../components/Page";
+import { Header } from "../components/layout/Header";
 
 export default function LetterEditor({ enablePan }) {
   const ref = useRef(null);
@@ -29,7 +26,8 @@ export default function LetterEditor({ enablePan }) {
             canvas
             ref={ref}
           >
-            <ColumnLayout columns={3}></ColumnLayout>
+            <Header></Header>
+            
           </Element>
         </Frame>
       </Grid>

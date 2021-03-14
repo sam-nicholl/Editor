@@ -1,10 +1,9 @@
-import React from "react";
-
 import { Element, useNode } from "@craftjs/core";
 import { FormControl, FormLabel, Grid, Paper, Slider } from "@material-ui/core";
-import { Text } from "./Text";
+import React from "react";
+import { Text } from "../user/Text";
 
-export const ColumnLayout = ({ columns, margin, padding }) => {
+export const Header = ({ columns, margin, padding }) => {
   columns = columns || 1;
   const {
     connectors: { connect, drag },
@@ -17,7 +16,7 @@ export const ColumnLayout = ({ columns, margin, padding }) => {
         <Element
           id={i.toString()}
           is={Paper}
-          style={{ height: "100%", minHeight: "50" }}
+          style={{ height: "100%" }}
           canvas
           square
         >
@@ -30,14 +29,14 @@ export const ColumnLayout = ({ columns, margin, padding }) => {
     <Grid
       ref={(ref) => connect(drag(ref))}
       container
-      style={{ margin: margin, padding: padding }}
+      style={{ height: 200 }}
     >
       {columnItems}
     </Grid>
   );
 };
 
-const ColumnLayoutSettings = () => {
+const HeaderSettings = () => {
   const {
     actions: { setProp },
     columns,
@@ -91,8 +90,11 @@ const ColumnLayoutSettings = () => {
   );
 };
 
-ColumnLayout.craft = {
+Header.craft = {
   related: {
-    settings: ColumnLayoutSettings,
+    settings: HeaderSettings,
+  },
+  rules: {
+    canDrag: false,
   },
 };

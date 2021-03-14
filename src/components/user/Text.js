@@ -44,7 +44,6 @@ const TextSettings = () => {
     fontSize,
   } = useNode((node) => ({
     fontSize: node.data.props.fontSize,
-    
   }));
 
   return (
@@ -69,4 +68,5 @@ Text.craft = {
   related: {
     settings: TextSettings,
   },
+  rules: {},
 };
